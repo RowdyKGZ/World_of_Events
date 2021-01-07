@@ -1,24 +1,23 @@
-from django.contrib.auth import get_user_model
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import FormView, View
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
-from .froms import UserRegistrationForm
-from .utils import send_activation_email
+from django.contrib.auth.forms import UserCreationForm
 
-
-class RegisterView(FormView):
-    """Registration user"""
-    form_class = UserRegistrationForm
-    success_url = reverse_lazy('login')
-    template_name = 'account/registration.html'
-
-    def form_valid(self, form):
-        user = form.save()
-        send_activation_email(user)
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
+from .models import *
+from .form import *
 
 
+def register_page(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form }
+    return render(request, 'registration/register.html', context)
+
+def login_page(request):
+    context = {}
+    return render(request, 'registration/login.html', context)
