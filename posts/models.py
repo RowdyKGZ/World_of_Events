@@ -15,7 +15,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     body = models.TextField(max_length=100, db_index=True)
     tags = models.ManyToManyField('Tag', blank=True, related_name='related_post')
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    author = models.ForeignKey(USER, on_delete=models.CASCADE)
     date_pub = models.DateTimeField(default=timezone.now)
     image = models.ImageField(blank=True, null=True)
     like = models.PositiveIntegerField(default=0)
