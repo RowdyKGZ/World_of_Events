@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+    {% block detail %}
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example" id="crud">
+          <button type="button" class="btn btn-danger">Удалить пост</button>
+          <button type="button" class="btn btn-success">Изменить пост</button>
+        </div>
+        <img class="img-responsive img-border img-left" src="{{ post.image.url }}" alt="img">
+        <p>{{ post.title }}</p>
+        <p>{{ post.author }}</p>
+        <p>{{ post.date_pub }}</p>
+        <p>{{ post.like }}</p>
+        <p>{{ post.comments }}</p>
+        <p>{{ post.body }}</p>
+    {% endblock %}
+
+
