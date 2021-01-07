@@ -7,4 +7,4 @@ from .models import Post
 class PostListView(ListView):
     queryset = Post.objects.all()
     context_object_name = 'posts'
-    template_name = 'posts/posts_list_view.html'
+    template_name = 'posts/index.html'
