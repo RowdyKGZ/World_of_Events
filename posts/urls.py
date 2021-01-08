@@ -2,13 +2,16 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, \
+    PostDeleteView
+
 
 urlpatterns = [
     path('', PostListView.as_view(), name='post_list_view'),
     path('create/', PostCreateView.as_view(), name='post_create_url'),
     path('<str:slug>/', PostDetailView.as_view(), name='post_detail_view'),
-    path('<int:id/edit/', PostUpdateView.as_view(), name='post_edit_view'),
+    path('<str:slug>/edit/', PostUpdateView.as_view(), name='post_update_url'),
+    path('<str:slug>/delete/', PostDeleteView.as_view(), name='post_delete_url'),
 ]
 
 if settings.DEBUG:

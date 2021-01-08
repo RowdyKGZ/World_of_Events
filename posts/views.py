@@ -1,8 +1,8 @@
-from django.views import View
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, \
+    DetailView, DeleteView
 
 from posts.models import Post
-from posts.utils import ObjectDetailMixin
 
 
 class PostListView(ListView):
@@ -26,7 +26,13 @@ class PostCreateView(CreateView):
     fields = ['title', 'author', 'body', 'slug', 'author', 'image']
 
 
-class PostUpdateView(UpdateView): # Новый класс
+class PostUpdateView(UpdateView):
     model = Post
-    template_name = 'post_edit_form.html'
+    template_name = 'posts/post_edit_form.html'
     fields = ['title', 'author', 'body', 'slug', 'author', 'image']
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'posts/post_delete_form.html'
+    success_url = reverse_lazy('post_list_view')
