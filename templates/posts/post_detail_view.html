@@ -9,7 +9,9 @@
             <p>{{ post.title }}</p>
             <p>{{ post.author }}</p>
             <p>{{ post.date_pub }}</p>
-            <p>{{ post.like }}</p>
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <button type="button" class="btn btn-success"><p>Likes: {{ post.likes.count }} <a href="{{ post.get_like_url }}">like</a></p></button>
+            </div>
             <p>{{ post.comments }}</p>
             <p>{{ post.body }}</p>
     {% endblock %}

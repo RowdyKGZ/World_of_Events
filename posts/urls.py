@@ -3,13 +3,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, \
-    PostDeleteView
+    PostDeleteView, PostLikeRedirect
 
 
 urlpatterns = [
     path('', PostListView.as_view(), name='post_list_view'),
     path('create/', PostCreateView.as_view(), name='post_create_url'),
     path('<str:slug>/', PostDetailView.as_view(), name='post_detail_view'),
+    path('<str:slug>/like/', PostLikeRedirect.as_view(), name='post_like'),
     path('<str:slug>/edit/', PostUpdateView.as_view(), name='post_update_url'),
     path('<str:slug>/delete/', PostDeleteView.as_view(), name='post_delete_url'),
 ]
