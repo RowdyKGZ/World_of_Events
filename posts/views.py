@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views import View
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
 
-from .models import Post
+from posts.models import Post
+from posts.utils import ObjectDetailMixin
 
 
 class PostListView(ListView):
@@ -14,5 +15,18 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     """Детали постов"""
     model = Post
+    template_name = 'posts/post_detail_view.html'
     context_object_name = 'post'
-    template_name = "posts/post_detail_view.html"
+
+
+class PostCreateView(CreateView):
+    model = Post
+    template_name = 'posts/post_create_form.html'
+    context_object_name = 'post'
+    fields = ['title', 'author', 'body', 'slug', 'author', 'image']
+
+
+class PostUpdateView(UpdateView): # Новый класс
+    model = Post
+    template_name = 'post_edit_form.html'
+    fields = ['title', 'author', 'body', 'slug', 'author', 'image']
