@@ -3,7 +3,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, \
     DetailView, DeleteView, RedirectView
 
-from posts.models import Post
+from .models import Post, Comment
+from .forms import PostForm
 
 
 class PostListView(ListView):
@@ -50,3 +51,24 @@ class PostLikeRedirect(RedirectView):
         else:
             obj.likes.add(user)
         return url_
+
+
+class CommentCreateView(CreateView):
+    model = Comment
+    template_name = 'posts/comment_create_form.html'
+    context_object_name = 'post'
+    fields = ['post', 'name', 'title',  'body', 'date_added', 'slug']
+    success_url = reverse_lazy('post_list_view')
+
+
+class CommentUpdateView(UpdateView):
+    model = Comment
+    template_name = 'posts/comment_edit_form.html'
+    fields = ['name', 'title', 'body', 'slug']
+    success_url = reverse_lazy('post_list_view')
+
+
+class CommentDeleteView(DeleteView):
+    model = Comment
+    template_name = 'posts/comment_delete_form.html'
+    success_url = reverse_lazy('post_list_view')

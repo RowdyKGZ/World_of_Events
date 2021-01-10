@@ -1,0 +1,36 @@
+#crud {
+        margin-left: 60%;
+        }
+
+#add_comment {
+        margin-left: 30%;
+        }
+
+.butt {
+    border: 3px solid #218294:
+    font-size: 30px
+    color: #218294:
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 250px;
+    height: 60px;
+    display: block;
+    text-align: center;
+    line-height: 60px;
+    fon-family: Arial, sans-serif;
+    position: relative;
+}
+.but::before {
+    position: absolute;
+    content: '';
+    width: 100%
+    height: 100%
+    background: #218284;
+    top: 0
+    left: -100%;
+    opacity: .5;
+    transition: 0.3s;
+}
+.but:hover::before {
+    left: 0;
+}

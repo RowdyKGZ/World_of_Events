@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
     {% for post in posts %}
     {% block content %}
-        <img class="img-responsive img-border img-left" src="{{ post.image.url }}" alt="">
+        <img class="img-responsive img-border img-left img-thumbnail" src="{{ post.image.url }}" alt="">
         <p>{{ post.title }}</p>
         <p>{{ post.author }}</p>
     {% endblock %}
