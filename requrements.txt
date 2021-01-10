@@ -1,3 +1,4 @@
 python-decouple
 pillow
 django
+django-ckeditor

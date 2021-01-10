@@ -5,13 +5,38 @@
           <a href="{{ post.get_delete_url }}"><button type="button" class="btn btn-danger">Удалить пост</button></a>
             <a href="{{ post.get_update_url }}"><button type="button" class="btn btn-success">Изменить пост</button></a>
         </div>
-            <img class="img-responsive img-border img-left" src="{{ post.image.url }}" alt="img">
+            <img class="img-responsive img-border img-left img-thumbnail" src="{{ post.image.url }}" alt="img">
             <p>{{ post.title }}</p>
             <p>{{ post.author }}</p>
             <p>{{ post.date_pub }}</p>
-            <p>{{ post.like }}</p>
-            <p>{{ post.comments }}</p>
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <button type="button" class="btn btn-success"><p>Likes: {{ post.likes.count }} <a href="{{ post.get_like_url }}">like</a></p></button>
+            </div>
             <p>{{ post.body }}</p>
+            <br/><br/>
+            <h2>Comments...</h2>
+            {% if not post.comments.all %}
+                Коментариев нет <a href="#">Добавить коментарий</a>
+            {% else %}
+                {% for comment in post.comments.all %}
+                    <strong>
+                        {{ comment.name }} -
+                        {{ comment.date_added }}
+                    </strong>
+                    <br/>
+                    <h3>{{ comment.body }}</h3>
+                    <br/>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example" id="comment-crud">
+                        <a href="{{ comment.get_delete_url }}"><button type="button" class="btn btn-danger">Удалить коментарий</button></a>
+                        <a href="{{ comment.get_update_url }}"><button type="button" class="btn btn-success">Изменить коментарий</button></a>
+                    </div>
+                    <br/>
+                    <hr>
+                {% endfor %}
+            {% endif %}
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example" id="add_comment">
+                <button type="button" class="btn btn-success">Добавить коментарий <a href="{% url 'comment_create_url' %}">+</a></button>
+            </div>
     {% endblock %}
 
 

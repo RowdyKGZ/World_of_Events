@@ -7,7 +7,7 @@ from posts.models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'image']
+        fields = ['title', 'body', 'image', 'slug']
 
         widget = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -22,3 +22,14 @@ class PostForm(forms.ModelForm):
         if new_slug == 'create':
             raise ValidationError('Slug may not be "Create"')
         return new_slug
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'body', 'image']
+
+        widget = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
