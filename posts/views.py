@@ -1,17 +1,19 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, \
+from django.views.generic import CreateView, UpdateView, \
     DetailView, DeleteView, RedirectView
+from django.core.paginator import Paginator
+from .models import Post, Comment, Tag
 
-from .models import Post, Comment
-from .forms import PostForm
 
+def posts_list(request):
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 2)
 
-class PostListView(ListView):
-    """Все посты"""
-    queryset = Post.objects.all()
-    context_object_name = 'posts'
-    template_name = 'posts/posts_list_view.html'
+    page_number = request.GET.get('page', 1)
+    page = paginator.get_page(page_number)
+
+    return render(request, 'posts/posts_list_view.html', context={'posts': page})
 
 
 class PostDetailView(DetailView):
@@ -31,7 +33,7 @@ class PostCreateView(CreateView):
 class PostUpdateView(UpdateView):
     model = Post
     template_name = 'posts/post_edit_form.html'
-    fields = ['title', 'author', 'body', 'slug', 'author', 'image']
+    fields = ['title', 'author', 'body', 'slug', 'author', 'image', 'tags']
 
 
 class PostDeleteView(DeleteView):
@@ -72,3 +74,40 @@ class CommentDeleteView(DeleteView):
     model = Comment
     template_name = 'posts/comment_delete_form.html'
     success_url = reverse_lazy('post_list_view')
+
+
+def tags_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'posts/tags_list_view.html', context={'tags': tags})
+
+
+class TagCreateView(CreateView):
+    model = Tag
+    template_name = 'posts/tag_create_form.html'
+    context_object_name = 'tag'
+    fields = ['title', 'slug']
+
+
+class TagUpdateView(UpdateView):
+    model = Tag
+    template_name = 'posts/tag_update_view.html'
+    fields = ['title', 'slug']
+    success_url = reverse_lazy('tags_list_view')
+
+
+def tags_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'posts/tags_list_view.html', context={'tags': tags})
+
+
+class TagDetailView(DetailView):
+    """Детали тэгов"""
+    model = Tag
+    template_name = 'posts/tag_detail_view.html'
+    context_object_name = 'tag'
+
+
+class TagDeleteView(DeleteView):
+    model = Tag
+    template_name = 'posts/tag_delete_form.html'
+    success_url = reverse_lazy('tags_list_view')
