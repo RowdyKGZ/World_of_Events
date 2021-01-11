@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
     {% block detail %}
         <h1>{{ tag.title }}</h1>
+        <h2>Посты на хэш-тег</h2>
+        {% for post in tag.posts.all %}
+            <a href="{{ post.get_absolute_url }}"><h2>{{ post.title }}</h2></a>
+        {% endfor %}
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
             <a href="{{ tag.get_delete_url }}"><button type="button" class="btn btn-danger">Удалить хэш-тэг</button></a>
             <a href="{{ tag.get_update_url }}"><button type="button" class="btn btn-success">Изменить хэш-тег</button></a>
+            \
         </div>
     {% endblock %}
