@@ -14,7 +14,7 @@
             <p>{{ post.body }}</p>
             <h3>Хэш-Тэги</h3>
             {% for tag in post.tags.all %}
-                <p>{{ tag.title }}</p>
+                <a href="{{ tag.get_absolute_url }}"><h3>{{ tag.title }}</h3></a>
             {% endfor %}
             <br/><br/>
             <h2>Comments...</h2>
