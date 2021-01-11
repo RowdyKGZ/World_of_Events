@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+    {% block detail %}
+        <h1>{{ tag.title }}</h1>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <a href="{{ tag.get_delete_url }}"><button type="button" class="btn btn-danger">Удалить хэш-тэг</button></a>
+            <a href="{{ tag.get_update_url }}"><button type="button" class="btn btn-success">Изменить хэш-тег</button></a>
+        </div>
+    {% endblock %}

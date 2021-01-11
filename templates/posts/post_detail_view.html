@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
     {% block detail %}
         <div class="btn-group" role="group" aria-label="Basic mixed styles example" id="crud">
           <a href="{{ post.get_delete_url }}"><button type="button" class="btn btn-danger">Удалить пост</button></a>
@@ -10,9 +9,13 @@
             <p>{{ post.author }}</p>
             <p>{{ post.date_pub }}</p>
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-              <button type="button" class="btn btn-success"><p>Likes: {{ post.likes.count }} <a href="{{ post.get_like_url }}">like</a></p></button>
+              <a href="{{ post.get_like_url }}"><button type="button" class="btn btn-success"><p>Likes: {{ post.likes.count }}</p></button></a>
             </div>
             <p>{{ post.body }}</p>
+            <h3>Хэш-Тэги</h3>
+            {% for tag in post.tags.all %}
+                <p>{{ tag.title }}</p>
+            {% endfor %}
             <br/><br/>
             <h2>Comments...</h2>
             {% if not post.comments.all %}
@@ -35,8 +38,9 @@
                 {% endfor %}
             {% endif %}
             <div class="btn-group" role="group" aria-label="Basic mixed styles example" id="add_comment">
-                <button type="button" class="btn btn-success">Добавить коментарий <a href="{% url 'comment_create_url' %}">+</a></button>
+                <a href="{% url 'comment_create_url' %}"><button type="button" class="btn btn-success">Добавить коментарий</button></a>
             </div>
     {% endblock %}
+
 
 

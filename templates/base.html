@@ -63,6 +63,9 @@
                     <li>
                         <a href="{% url 'post_create_url' %}">Добавить запись</a>
                     </li>
+                    <li>
+                        <a href="{% url 'tags_list_view' %}">Хэш теги</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -80,11 +83,30 @@
                     <a href="{% url 'post_detail_view' slug=post.slug %}"><h2 class="intro-text text-center">{{ post.title }}</h2></a>
                     <hr>
                     <hr class="visible-xs">
+
                             {% block content %}
                             {% endblock %}
                 </div>
             </div>
             {% endfor %}
+
+                <nav aria-label="...">
+                  <ul class="pagination">
+                    <li class="page-item active" aria-current="page">
+                    </li>
+                      {% for n in posts.paginator.page_range %}
+                        {% if posts.number == n%}
+                            </li>
+                                <li class="page-item active" aria-current="page">
+                            </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                        </li>
+                      {% endfor %}
+                  </ul>
+                </nav>
+
         </div>
 
         <div class="row">

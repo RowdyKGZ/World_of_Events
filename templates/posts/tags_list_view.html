@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+    {% block detail %}
+    <h1>Тэги: </h1>
+    {% for tag in tags %}
+    <a href="{{ tag.get_absolute_url }}"><h3>{{ tag.title }}</h3></a>
+    {% endfor %}
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example" id="add_tag">
+        <a href="{% url 'tag_create_view' %}"><button type="button" class="btn btn-success">Добавить тэг</button></a>
+    </div>
+    {% endblock %}

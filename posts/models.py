@@ -12,7 +12,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
     body = RichTextField(blank=True, null=True)
-    tags = models.ManyToManyField('Tag', blank=True, related_name='related_post')
+    tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
     author = models.ForeignKey(USER, on_delete=models.CASCADE)
     date_pub = models.DateTimeField(default=timezone.now)
     image = models.ImageField(blank=True, null=True)
@@ -41,6 +41,15 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('tag_detail_view', kwargs={'slug': self.slug})
+
+    def get_update_url(self):
+        return reverse('tag_update_view', kwargs={'slug': self.slug})
+
+    def get_delete_url(self):
+        return reverse('tag_delete_view', kwargs={'slug': self.slug})
 
     class Meta:
         ordering = ['title']

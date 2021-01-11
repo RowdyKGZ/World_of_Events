@@ -3,10 +3,9 @@
     {% block content %}
         <img class="img-responsive img-border img-left img-thumbnail" src="{{ post.image.url }}" alt="">
         <p>{{ post.title }}</p>
-        <p>{{ post.author }}</p>
+         <p>{{ post.tags }}</p>
     {% endblock %}
     {% endfor %}
-
     {% block detail %}
         <p>Use as many boxes as you like, and put anything you want in them! They are great for just about anything, the sky's the limit!</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc placerat diam quis nisl vestibulum dignissim. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
